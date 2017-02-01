@@ -1,39 +1,17 @@
 source 'https://rubygems.org'
-ruby '2.2.4'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
-
-# для pg вместо sqlite
-gem 'pg'
-
 # Use sqlite3 as the database for Active Record
 group :development, :test do
-  # закомментировал для pg
-  # gem 'sqlite3'
-
-
+  gem 'sqlite3'
   gem 'rspec-rails'
- 
-  #gem 'guard-rspec'
-
-  # SPORK
-  #gem 'spork-rails'
-  #gem 'guard-spork'
-  #gem 'childprocess'
-
 end
 
 group :test do
   gem 'selenium-webdriver'
   gem 'capybara'
-
-# Windows: раскомментируйте эти строки.
-  #gem 'rb-notifu'
-  #gem 'win32console'
-  #gem 'wdm'
-
-
 end
 
 # Use SCSS for stylesheets
@@ -80,7 +58,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 group :production do
-#  gem 'pg'
+  gem 'pg'
   gem 'rails_12factor'
 end
 

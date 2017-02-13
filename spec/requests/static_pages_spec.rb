@@ -29,40 +29,43 @@ RSpec.describe "StaticPages", type: :request do
   end
 
   describe "Help page" do
+
+  before {get help_path }  
+
     it "should have the content 'Help'" do
-      get help_path
       expect(response.body).to match "Help"
     end
 
     it "should have the title 'Help'" do
-      get help_path
       expect(response.body).to include("<title>#{base_title} | Help</title>")
     end
  
   end
 
  describe "About page" do
+
+   before {get about_path }  
+
+
     it "should have the content 'About us'" do
-      get about_path
       expect(response.body).to match "About Us"
     end
 
     it "should have the title 'About Us'" do
-      get about_path
-      expect(response.body).to include("<title>#{base_title} | About Us</title>")
+       expect(response.body).to include("<title>#{base_title} | About Us</title>")
     end
 
   end 
 
 
  describe "Contact page" do
+   before {get contact_path }  
+
     it "should have the content 'Contact'" do
-      get contact_path
       expect(response.body).to match "Contact"
     end
 
     it "should have the title 'Contact'" do
-      get contact_path
       expect(response.body).to include("<title>#{base_title} | Contact</title>")
     end
 

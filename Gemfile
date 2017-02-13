@@ -7,6 +7,8 @@ gem 'rails', '4.2.5.1'
 # Bootstraps!
 gem 'bootstrap-sass'
 
+gem 'bcrypt'
+
 # הכÿ pg גלוסעמ sqlite
 gem 'pg'
 

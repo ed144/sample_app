@@ -118,5 +118,15 @@ RSpec.describe User, type: :model do
 
 
 
+  it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }
+  it { should respond_to(:authenticate) }
+
+  describe "remember token" do
+    before { @user.save }
+    #its(:remember_token) { should_not be_blank }
+     it { expect(@user.remember_token).not_to be_blank }
+  end
+
 
 end

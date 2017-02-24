@@ -35,6 +35,10 @@ group :test do
 
   gem 'factory_girl_rails'
 
+  gem 'cucumber-rails', '1.4.0', :require => false
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
+
+
 # Windows: раскомментируйте эти строки.
   #gem 'rb-notifu'
   #gem 'win32console'

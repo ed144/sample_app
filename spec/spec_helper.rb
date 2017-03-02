@@ -3,6 +3,8 @@ require 'rubygems'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
+
+
 #Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
@@ -65,6 +67,28 @@ require 'rubygems'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+
+# edik add for cleaning test db
+config.before(:suite) do
+#  DatabaseCleaner[:active_record].strategy = :transaction
+#  DatabaseCleaner.clean_with(:truncation)
+end
+
+config.before(:each) do
+#  DatabaseCleaner.start
+end
+
+config.after(:each) do
+#  DatabaseCleaner.clean
+end
+# end of edik add for cleaning test db
+
+
+
+
+
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

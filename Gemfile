@@ -12,6 +12,14 @@ gem 'bcrypt'
 # дл€ pg вместо sqlite
 gem 'pg'
 
+# дл€ генерировани€ пользователей
+gem 'faker', '1.1.2'
+
+# дл€ постраничного вывода
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+
+
 # Use sqlite3 as the database for Active Record
 group :development, :test do
   # закомментировал дл€ pg

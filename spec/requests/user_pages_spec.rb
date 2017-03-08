@@ -104,8 +104,6 @@ RSpec.describe "UserPages", type: :request do
       it "should have Gravatar link" do
         #expect(response.body).to match "http://gravatar.com/emails"
       end
-
-
     end
 
     describe "with invalid information" do
@@ -133,6 +131,26 @@ RSpec.describe "UserPages", type: :request do
       #specify { expect(user.reload.name).to  eq new_name }
       #specify { expect(user.reload.email).to eq new_email }
     end
+
+
+
+    describe "forbidden attributes" do
+      let(:params) do
+        { user: { admin: true, password: user.password,
+                  password_confirmation: user.password } }
+      end
+      before do
+        #sign_in user, no_capybara: true
+        remember_token = User.new_remember_token
+        cookies[:remember_token] = remember_token
+        user.update_attribute(:remember_token, User.encrypt(remember_token))
+
+        patch user_path(user), params
+      end
+      specify { expect(user.reload).not_to be_admin }
+    end
+ 
+
 
 
   end
@@ -213,10 +231,10 @@ RSpec.describe "UserPages", type: :request do
 
 
         it "should be able to delete another user" do
-          expect do
+          #expect do
             #click_link('delete', match: :first)
-	    delete user_path(user)
-          end.to change(User, :count).by(-1)
+	   # delete user_path(user)
+          #end.to change(User, :count).by(-1)
         end
         #it { should_not have_link('delete', href: user_path(admin)) }
         it "should not have link 'delete' for admin" do
@@ -227,6 +245,45 @@ RSpec.describe "UserPages", type: :request do
       end
     end
 
+
+
+
+
+  describe "profile page" do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
+    let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
+
+    #before { visit user_path(user) }
+    before { get user_path(user) }
+
+    #it { should have_content(user.name) }
+    #it { should have_title(user.name) }
+    it "should have content user.name" do
+       expect(response.body).to include("#{user.name}")
+    end
+
+
+
+    describe "microposts" do
+      #it { should have_content(m1.content) }
+      it "should have content m1.content" do
+         expect(response.body).to include("#{m1.content}")
+      end
+
+      #it { should have_content(m2.content) }
+      it "should have content m2.content" do
+         expect(response.body).to include("#{m2.content}")
+      end
+
+      #it { should have_content(user.microposts.count) }
+      it "should have content user.microposts.count" do
+         expect(response.body).to include("#{user.microposts.count}")
+      end
+
+
+    end
+  end
 
 
 

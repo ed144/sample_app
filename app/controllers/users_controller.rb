@@ -14,11 +14,16 @@ class UsersController < ApplicationController
 
 
   def new
-	@user = User.new()
+    if signed_in?
+      redirect_to root_path
+	else
+      @user = User.new()
+    end
   end
 
   def show
 	@user = User.find(params[:id])
+	@microposts = @user.microposts.paginate(page: params[:page], per_page: 10)
   end
 
   def edit
@@ -35,21 +40,30 @@ class UsersController < ApplicationController
 
 
   def create
-    @user = User.new(user_params)    # Not the final implementation!
-    if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
-         else
-      render 'new'
+    if signed_in?
+      redirect_to root_path
+	else
+      @user = User.new(user_params)    # Not the final implementation!
+      if @user.save
+        sign_in @user
+        flash[:success] = "Welcome to the Sample App!"
+        redirect_to @user
+           else
+        render 'new'
+      end
     end
   end
 
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted."
-    redirect_to users_url
+    if !User.find(params[:id]).admin?
+      User.find(params[:id]).destroy
+      flash[:success] = "User deleted."
+      redirect_to users_url
+	else
+      flash[:error] = "You can't delete admin user."
+      redirect_to users_url
+    end
   end
 
 
@@ -62,11 +76,6 @@ class UsersController < ApplicationController
 
 
     # Before filters
-
-    def signed_in_user
-      store_location
-      redirect_to signin_url, notice: "Please sign in." unless signed_in?
-    end
 
     def correct_user
       @user = User.find(params[:id])	

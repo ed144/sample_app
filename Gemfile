@@ -48,9 +48,9 @@ group :test do
 
 
 # Windows: раскомментируйте эти строки.
-  #gem 'rb-notifu'
-  #gem 'win32console'
-  #gem 'wdm'
+  gem 'rb-notifu'
+  #gem 'win32console', '1.3.2'
+  gem 'wdm'
 
 
 end

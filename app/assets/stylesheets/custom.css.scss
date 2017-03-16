@@ -8,6 +8,8 @@ $lightGray: #999;
 $grayLight: #999;
 $grayLighter: #ccc;
 
+$blue: #00f;
+
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -99,7 +101,6 @@ p {
     color: #fff;
     text-decoration: none;
   }
-
 }
 
 
@@ -218,7 +219,6 @@ input {
     &:last-child {
       border-bottom: 1px solid $grayLighter;
     }
-
     .right {
 	color: #000;
 	float: right;
@@ -236,7 +236,6 @@ input {
 .microposts {
   list-style: none;
   margin: 10px 0 0 0;
-
   li {
     padding: 10px 0;
     border-top: 1px solid #e8e8e8;
@@ -256,6 +255,36 @@ aside {
   textarea {
     height: 100px;
     margin-bottom: 5px;
+  }
+}
+
+
+.stats {
+  overflow: auto;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $grayLighter;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: $blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
   }
 }
 

@@ -1,5 +1,5 @@
 require 'rails_helper'
-#require 'spec_helper'
+require 'spec_helper'
 
 RSpec.describe "StaticPages", type: :request do
 
@@ -44,9 +44,27 @@ RSpec.describe "StaticPages", type: :request do
 	  # expect(response.body).to have_selector("li##{item.id}", text: item.content)
        end
       end
+
+      describe "follower/following counts" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          other_user.follow!(user)
+          #visit root_path
+	  get root_path
+        end
+
+        #it { should have_link("0 following", href: following_user_path(user)) }
+	#it { expect(response.body).to include('following') }
+        #it { should have_link("1 followers", href: followers_user_path(user)) }
+	#it { expect(response.body).to include('followers') }
+     end
+
+
     end
 
 
+
+ 
 
   end
 
